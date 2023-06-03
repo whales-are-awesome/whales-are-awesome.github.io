@@ -1,0 +1,13 @@
+@layer components {
+    .container {
+        @apply mx-auto box-border px-4;
+
+        max-width: calc(var(--container-max-width) + 32px);
+    }
+
+    .container-sm {
+        @apply mx-auto box-border px-4;
+
+        max-width: calc(var(--container-sm-max-width) + 32px);
+    }
+}

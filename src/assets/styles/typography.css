@@ -1,0 +1,81 @@
+h1, .title-h1 {
+    @apply text-h1 font-bold;
+}
+h2, .title-h2 {
+    @apply text-h2 font-bold;
+}
+h3, .title-h3 {
+    @apply text-h3 font-bold;
+}
+
+h4, .title-h4 {
+    @apply text-h4 font-bold;
+}
+
+h5, .title-h5 {
+    @apply text-h5 font-bold;
+}
+
+h6, .title-h6 {
+    @apply text-h6 font-bold;
+}
+
+.title-h7 {
+    @apply text-h7 font-bold;
+}
+
+@screen sm {
+    .text-xxs {
+        font-size: 8px;
+        line-height: 12px;
+    }
+    .text-xs {
+        font-size: 10px;
+        line-height: 14px;
+    }
+    .text-sm {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .text-base {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .text-lg {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .text-xl {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .text-h1, h1, .title-h1 {
+        font-size: 32px;
+        line-height: 40px;
+    }
+    .text-h2, h2, .title-h2 {
+        font-size: 28px;
+        line-height: 36px;
+    }
+    .text-h3, h3, .title-h3 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+    .text-h4, h4, .title-h4 {
+        font-size: 20px;
+        line-height: 28px;
+    }
+    .text-h5, h5, .title-h5 {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .text-h6, h6, .title-h6 {
+        font-size: 12px;
+        line-height: 20px;
+    }
+    .text-h7, .title-h7 {
+        font-size: 12px;
+        line-height: 20px;
+    }
+}

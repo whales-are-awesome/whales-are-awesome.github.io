@@ -1,0 +1,22 @@
+/*@layer utilities {*/
+/*    .-scrollbar {*/
+/*        @apply overflow-auto;*/
+/*        scrollbar-width: thin;*/
+/*        scrollbar-color: #0A4C95 #C2D2E4;*/
+/*        &::-webkit-scrollbar {*/
+/*            @apply w-2 h-2;*/
+/*            background: transparent;*/
+/*        }*/
+/*        &::-webkit-scrollbar-track {*/
+/*            @apply bg-blue-800 bg-opacity-10 bg-clip-content;*/
+/*            border: 3px solid transparent;*/
+/*        }*/
+/*        &::-webkit-scrollbar-thumb {*/
+/*            @apply bg-blue-600 bg-clip-content;*/
+/*            border: 3px solid transparent;*/
+/*        }*/
+/*    }*/
+/*    .-scrollbar_y {*/
+/*        @apply overflow-x-hidden overflow-y-auto;*/
+/*    }*/
+/*}*/

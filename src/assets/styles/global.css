@@ -1,0 +1,29 @@
+/*
+    Эти стили будут подключаться на всех страницах.
+*/
+
+/* Сначала выводятся все слои tailwind, потом уже другое */
+@import "./tailwind.css";
+
+/* Секция для общих стилей и настроек */
+@import "./settings.css";
+/*@import "./fonts.css";*/
+@import "./reset.css";
+@import "./layout.css";
+@import './typography.css';
+/*@import './animations.css';*/
+
+/* Секция для компонентов */
+@import "./components/container.css";
+@import "./components/preloader.css";
+
+/* Секция для утилит */
+@import "./utilities/scrollbar.css";
+
+/* Секция для анимаций */
+@import "./transitions.css";
+
+
+.break-words {
+    word-break: break-word;
+}
