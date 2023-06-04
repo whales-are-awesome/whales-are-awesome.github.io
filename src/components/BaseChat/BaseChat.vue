@@ -132,12 +132,16 @@ onMounted(async () => {
         root.value.scrollTop = 0;
     }
 
-    root.value?.addEventListener('wheel', turnWheel);
+    if (!navigator.appVersion.includes('Win')) {
+        root.value?.addEventListener('wheel', turnWheel);
+    }
 });
 
 onUnmounted(() => {
-    root.value?.removeEventListener('wheel', turnWheel);
-})
+    if (!navigator.appVersion.includes('Win')) {
+        root.value?.removeEventListener('wheel', turnWheel)
+    }
+});
 
 function turnWheel(e: WheelEvent) {
     e.stopPropagation();
@@ -206,7 +210,7 @@ function onWentOnline() {
         props.fetchMessages(0);
     }
 
-    root.value?.dispatchEvent(new CustomEvent('scroll'))
+    root.value?.dispatchEvent(new CustomEvent('scroll'));
 }
 </script>
 
