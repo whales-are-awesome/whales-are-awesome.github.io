@@ -1,11 +1,14 @@
 import { useFetchDataWithTotal } from '@/composables/useFetchData';
 import { INormalizedMessageAsMessenger, IMessageQuery } from '@/types/services/MessageService';
 import MessageService from '@/services/MessageService';
+import wait from '@/helpers/wait';
+import { nextTick } from 'vue';
 
 function useMessageItems() {
     const items = useFetchDataWithTotal<INormalizedMessageAsMessenger>();
 
     fetchItems();
+
     async function fetchItems(offset = 0) {
         items.value.pending = true;
         items.value.cancel();
@@ -34,7 +37,20 @@ function useMessageItems() {
         items.value = { ...items.value, pending: false, cancel, error };
     }
 
-    return [items, fetchItems] as const;
+    async function addMessages() {
+        await wait(() => !items.value.pending);
+
+        if (items.value.data?.items.length == items.value.data?.total) {
+            return
+        }
+
+        fetchItems(items.value.data!.offset + 20)
+        await nextTick();
+
+        return wait(() => !items.value.pending);
+    }
+
+    return [items, fetchItems, addMessages] as const;
 }
 
 export default useMessageItems;
