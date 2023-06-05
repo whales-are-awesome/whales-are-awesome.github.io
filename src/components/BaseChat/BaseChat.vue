@@ -3,13 +3,7 @@
         <div
             :class="classes.root"
         >
-            <div v-if="pending" :class="classes.preloader"></div>
-            <div v-else-if="error" :class="classes.error">
-                {{ error }}
-            </div>
-            <div v-else :class="classes.delimiter"></div>
             <div
-                v-if="filteredItems?.length"
                 :class="classes.messageItems"
                 ref="itemsRef"
                 v-scroll-at="onScrollTop"
@@ -32,6 +26,12 @@
                         @set-reaction="setReaction(item.id, $event)"
                     />
                 </TransitionGroup>
+                <div :class="classes.states">
+                    <div v-if="pending" :class="classes.preloader"></div>
+                    <div v-else-if="error" :class="classes.error">
+                        {{ error }}
+                    </div>
+                </div>
             </div>
             <BaseChatForm
                 :class="classes.form"
@@ -87,7 +87,7 @@ const useClasses = makeClasses<IThemeProps>(() => ({
         'flex flex-col h-full w-full bg-primary-500 relative overflow-hidden'
     ],
     form: ({ themeSettings, isError }) => [themeSettings?.form,
-        'w-full h-[60px] z-10 justify-self-end',
+        'w-full h-[60px] z-10',
         {
             'pointer-events-none': isError
         }
@@ -95,9 +95,9 @@ const useClasses = makeClasses<IThemeProps>(() => ({
     messageItems: 'flex-grow flex flex-col justify-start overflow-auto h-full rotate-180 [&>*]:scale-y-[-1] [&>*]:scale-x-[-1] [&::-webkit-scrollbar]:hidden [scrollbar-width:none]',
     messageItemsInner: 'relative p-4',
     messageItem: 'w-full mb-1',
-    preloader: '-preloader -preloader_sm -preloader_placeholder my-auto py-6',
-    error: 'text-sm text-center py-2 my-auto',
-    delimiter: 'mt-auto'
+    preloader: '-preloader -preloader_sm -preloader_placeholder py-6',
+    error: 'text-sm text-center py-2 ',
+    states: 'my-auto h-0'
 }));
 
 const classes = computed<ReturnType<typeof useClasses>>(() => {
