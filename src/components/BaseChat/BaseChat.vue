@@ -2,15 +2,18 @@
     <div>
         <div
             :class="classes.root"
-            ref="root"
-            v-scroll-at="onScrollTop"
         >
-            <div :class="classes.formWrapper"></div>
-            <div :class="classes.messageItems">
-                <div v-if="pending" :class="classes.preloader"></div>
-                <div v-if="error" :class="classes.error">
-                    {{ error }}
-                </div>
+            <div v-if="pending" :class="classes.preloader"></div>
+            <div v-else-if="error" :class="classes.error">
+                {{ error }}
+            </div>
+            <div v-else :class="classes.delimiter"></div>
+            <div
+                v-if="filteredItems?.length"
+                :class="classes.messageItems"
+                ref="itemsRef"
+                v-scroll-at="onScrollTop"
+            >
                 <TransitionGroup
                     :class="classes.messageItemsInner"
                     tag="div"
@@ -30,11 +33,11 @@
                     />
                 </TransitionGroup>
             </div>
+            <BaseChatForm
+                :class="classes.form"
+                @submit="addMessage"
+            />
         </div>
-        <BaseChatForm
-            :class="classes.form"
-            @submit="addMessage"
-        />
     </div>
 </template>
 
@@ -81,21 +84,20 @@ interface IThemeProps extends Pick<IProps, 'themeSettings'>{
 
 const useClasses = makeClasses<IThemeProps>(() => ({
     root: ({ themeSettings }) => [themeSettings?.root,
-        'root flex flex-col h-full w-full bg-primary-500 relative overflow-y-auto rotate-180 [&>*]:scale-y-[-1] [&>*]:scale-x-[-1] [&::-webkit-scrollbar]:hidden [scrollbar-width:none]'
+        'flex flex-col h-full w-full bg-primary-500 relative overflow-hidden'
     ],
-    formWrapper: 'w-full h-[60px] flex-shrink-0',
     form: ({ themeSettings, isError }) => [themeSettings?.form,
-        // sticky не дружит с нижним баром телефонов
-        'w-full h-[60px] mx-auto fixed bottom-0 left-1/2 -translate-x-1/2 h-[60px] z-10',
+        'w-full h-[60px] z-10 justify-self-end',
         {
             'pointer-events-none': isError
         }
     ],
-    messageItems: 'flex-grow flex flex-col justify-end p-4',
-    messageItemsInner: 'relative',
+    messageItems: 'flex-grow flex flex-col justify-start overflow-auto h-full rotate-180 [&>*]:scale-y-[-1] [&>*]:scale-x-[-1] [&::-webkit-scrollbar]:hidden [scrollbar-width:none]',
+    messageItemsInner: 'relative p-4',
     messageItem: 'w-full mb-1',
-    preloader: '-preloader -preloader_sm -preloader_placeholder my-auto',
-    error: 'text-sm text-center'
+    preloader: '-preloader -preloader_sm -preloader_placeholder my-auto py-6',
+    error: 'text-sm text-center py-2 my-auto',
+    delimiter: 'mt-auto'
 }));
 
 const classes = computed<ReturnType<typeof useClasses>>(() => {
@@ -122,24 +124,25 @@ const filteredItems = computed(() => [...value.value].reverse().filter(item => !
 
 // ROOT
 
-const root = ref<HTMLDivElement | null>(null);
+const itemsRef = ref<HTMLDivElement | null>(null);
 
 onMounted(async () => {
-    await wait(() => !!root.value);
+    await wait(() => !!itemsRef.value);
 
-    if (root.value) {
+    if (itemsRef.value) {
         await nextTick();
-        root.value.scrollTop = 0;
+        itemsRef.value.scrollTop = 0;
     }
 
     if (!navigator.appVersion.includes('Win')) {
-        root.value?.addEventListener('wheel', turnWheel);
+        console.log(itemsRef.value);
+        itemsRef.value?.addEventListener('wheel', turnWheel);
     }
 });
 
 onUnmounted(() => {
     if (!navigator.appVersion.includes('Win')) {
-        root.value?.removeEventListener('wheel', turnWheel)
+        itemsRef.value?.removeEventListener('wheel', turnWheel)
     }
 });
 
@@ -147,7 +150,7 @@ function turnWheel(e: WheelEvent) {
     e.stopPropagation();
     e.preventDefault();
 
-    root.value?.scrollBy(0, -e.deltaY);
+    itemsRef.value?.scrollBy(0, -e.deltaY);
 }
 
 
@@ -168,7 +171,7 @@ async function addMessage(text: INormalizedMessageAsMessenger['text']) {
 
 
     await nextTick();
-    root.value?.scrollTo({
+    itemsRef.value?.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
@@ -210,7 +213,7 @@ function onWentOnline() {
         props.fetchMessages(0);
     }
 
-    root.value?.dispatchEvent(new CustomEvent('scroll'));
+    itemsRef.value?.dispatchEvent(new CustomEvent('scroll'));
 }
 </script>
 

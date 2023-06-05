@@ -1,9 +1,6 @@
 <template>
     <BaseChat
         class="mx-auto w-full max-w-[700px] h-screen"
-        :theme-settings="{
-            form: 'max-w-[700px]'
-        }"
         :pending="messages.pending"
         :error="messages.error?.message"
         :on-scroll-top="addMessages"
