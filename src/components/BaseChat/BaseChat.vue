@@ -87,7 +87,7 @@ const useClasses = makeClasses<IThemeProps>(() => ({
         'flex flex-col h-full w-full bg-primary-500 relative overflow-hidden'
     ],
     form: ({ themeSettings, isError }) => [themeSettings?.form,
-        'w-full h-[60px] z-10',
+        'w-full h-[60px] z-10 flex-shrink-0',
         {
             'pointer-events-none': isError
         }
