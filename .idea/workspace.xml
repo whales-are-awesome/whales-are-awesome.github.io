@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06d31d4c-9e57-4cc3-8db2-f1c9405d7e35" name="Changes" comment="twekas">
-      <change beforePath="$PROJECT_DIR$/.idea/codestream.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codestream.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="06d31d4c-9e57-4cc3-8db2-f1c9405d7e35" name="Changes" comment="twekas" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +69,7 @@
       <workItem from="1697623772191" duration="601000" />
       <workItem from="1698249689403" duration="995000" />
       <workItem from="1698306079325" duration="27000" />
-      <workItem from="1698489606469" duration="1060000" />
+      <workItem from="1698489606469" duration="1473000" />
     </task>
     <task id="LOCAL-00001" summary="twekas">
       <option name="closed" value="true" />
